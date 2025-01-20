@@ -8,9 +8,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 @allure.feature("Выбор фильма, на который будет куплен билет")
 class BuyTicket:
 
+
     def __init__(self, driver):
         self._driver = driver
         self._driver.implicitly_wait(5)
+        self._driver.execute_script("window.scrollBy(0, 400)")
+
 
     @allure.step("Открыть страницу.")
     def open_pages(self):
@@ -20,6 +23,7 @@ class BuyTicket:
         """
         self._driver.get("https://www.kinopoisk.ru/")
         self._driver.maximize_window()
+
 
     @allure.step(" Нажать кнопку - Билеты в кино")
     def choice_ticket(self):
@@ -32,6 +36,7 @@ class BuyTicket:
         )
         self._driver.find_element(By.LINK_TEXT, 'Билеты в кино').click()
 
+
     @allure.step(" Выбрать фильм")
     def buy_ticket(self):
         """
@@ -42,6 +47,7 @@ class BuyTicket:
             EC.presence_of_element_located((By.CSS_SELECTOR, "[data-tid='d4e8d214']"))
         )
         self._driver.find_element(By.CSS_SELECTOR, "[data-tid='d4e8d214']").click()
+
 
     @allure.step("Закрыть браузер")
     def close_driver(self):

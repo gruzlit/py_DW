@@ -1,3 +1,4 @@
+import pytest
 import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -11,6 +12,8 @@ class Authlogin:
     def __init__(self, driver):
         self._driver = driver
         self._driver.implicitly_wait(5)
+        self._driver.execute_script("window.scrollBy(0, 400)")
+
 
     @allure.step("Открыть страницу.")
     def open_pages(self):
@@ -21,6 +24,7 @@ class Authlogin:
         self._driver.get("https://www.kinopoisk.ru/")
         self._driver.maximize_window()
 
+
     @allure.step("Нажать на кнопку 'Войти'.")
     def login_button(self):
         """
@@ -29,6 +33,7 @@ class Authlogin:
         """
         self._driver.find_element(By.CSS_SELECTOR, "button.styles_loginButton__LWZQp").click()
 
+
     @allure.step("Ввести данные в поле 'Логин'")
     def user_name(self):
         """
@@ -36,6 +41,7 @@ class Authlogin:
         :return: Логин принят.
         """
         self._driver.find_element(By.CSS_SELECTOR, "#passp-field-login").send_keys("ahalkatsivladimir", Keys.ENTER)
+
 
     @allure.step("Ввести данные в поле 'Пароль'")
     def password(self):

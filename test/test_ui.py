@@ -2,6 +2,7 @@ import allure
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
 from SearchMovie import SearchMovie
 from AuthLogin import Authlogin
 from WatchMovie import WatchMovie
@@ -18,6 +19,9 @@ def test_auth():
     auth_login.open_pages()
     auth_login.login_button()
     auth_login.user_name()
+    current_url = driver.current_url
+    with allure.step("Проверяем , что получен  текущий URL текущей страницы"):
+     assert "kinopoisk.ru" in current_url
     auth_login.close_driver()
 
 
@@ -30,6 +34,8 @@ def test_search():
     search_movie.open_pages()
     search_movie.search_input()
     search_movie.choice_movie()
+    with allure.step("Проверяем,что искомый фильм найден"):
+     assert driver.find_element(By.CSS_SELECTOR, "span[data-tid='75209b22']").text == "Огниво (2024)"
     search_movie.close_driver()
 
 
@@ -43,6 +49,9 @@ def test_view():
     watch_movie.search_input()
     watch_movie.choice_movie()
     watch_movie.view_movie()
+    current_url = driver.current_url
+    with allure.step("Проверяем , что получен  текущий URL текущей страницы"):
+     assert "kinopoisk.ru" in current_url
     watch_movie.close_driver()
 
 
@@ -54,6 +63,9 @@ def test_ticket():
     cinema_ticket = CinemaTicket(driver)
     cinema_ticket.open_pages()
     cinema_ticket.choice_ticket()
+    current_url = driver.current_url
+    with allure.step("Проверяем , что получен  текущий URL текущей страницы"):
+     assert "kinopoisk.ru" in current_url
     cinema_ticket.close_driver()
 
 
@@ -66,4 +78,7 @@ def test_buy():
     buy_ticket.open_pages()
     buy_ticket.choice_ticket()
     buy_ticket.buy_ticket()
+    current_url = driver.current_url
+    with allure.step("Проверяем , что получен  текущий URL текущей страницы"):
+     assert "kinopoisk.ru" in current_url
     buy_ticket.close_driver()

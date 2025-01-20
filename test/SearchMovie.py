@@ -11,6 +11,8 @@ class SearchMovie:
     def __init__(self, driver):
         self._driver = driver
         self._driver.implicitly_wait(5)
+        self._driver.execute_script("window.scrollBy(0, 400)")
+
 
     @allure.step("Открыть страницу.")
     def open_pages(self):
@@ -42,6 +44,7 @@ class SearchMovie:
         """
         self._driver.find_element(By.CSS_SELECTOR,
                                   "#block_left_pad > div > div:nth-child(3) > div > div.info > p > a").click()
+
 
     @allure.step("Закрыть браузер")
     def close_driver(self):

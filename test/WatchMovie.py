@@ -9,9 +9,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 @allure.feature("Отработка кнопки - Просмотр фильма")
 class WatchMovie:
 
+
     def __init__(self, driver):
         self._driver = driver
         self._driver.implicitly_wait(5)
+        self._driver.execute_script("window.scrollBy(0, 400)")
 
 
     @allure.step("Открыть страницу.")
@@ -36,8 +38,6 @@ class WatchMovie:
         self._driver.find_element(By.NAME, "kp_query").send_keys("Огниво", Keys.ENTER)
 
 
-
-
     @allure.step("Найти фильм из списка")
     def choice_movie(self):
         """
@@ -47,7 +47,6 @@ class WatchMovie:
         self._driver.find_element(By.CSS_SELECTOR, "#block_left_pad > div > div:nth-child(3) > div > div.info > p > a").click()
 
 
-
     @allure.step("Начать просмотр")
     def view_movie(self):
         """
@@ -55,8 +54,6 @@ class WatchMovie:
         :return: Просмотр фильма.
         """
         self._driver.find_element(By.CSS_SELECTOR, "[data-tid='712957ef']").click()
-
-
 
 
     @allure.step("Закрыть браузер")
